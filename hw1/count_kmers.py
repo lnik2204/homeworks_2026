@@ -22,7 +22,7 @@ with open(args.fa) as f:
 # Подсчёт k-меров
 result = {}
 for name, seq in seqs.items():
-    kmers = [seq[i:i+4] for i in range(len(seq)-3)]
+    kmers = [seq[i:i+2] for i in range(len(seq)-1)]
     result[name] = dict(Counter(kmers))
 
 with open('cnts.json', 'w') as f:
