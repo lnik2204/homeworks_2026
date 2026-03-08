@@ -5,7 +5,9 @@ import json
 from collections import Counter
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--fa', required=True)
+parser.add_argument('--fa', required=True, help='Входной FASTA файл')
+parser.add_argument('--k', type=int, default=4, help='Длина k-мера')
+parser.add_argument('--out', default='cnts.json', help='Выходной JSON файл')
 args = parser.parse_args()
 
 # Чтение FASTA
@@ -21,11 +23,15 @@ with open(args.fa) as f:
 
 # Подсчёт k-меров
 result = {}
+k = args.k
 for name, seq in seqs.items():
-    kmers = [seq[i:i+4] for i in range(len(seq)-3)]
-    result[name] = dict(Counter(kmers))
+    if len(seq) >= k:
+        kmers = [seq[i:i+k] for i in range(len(seq)-k+1)]
+        result[name] = dict(Counter(kmers))
+    else:
+        result[name] = {}
 
-with open('cnts.json', 'w') as f:
+with open('out.json', 'w') as f:
     f.write('{\n')
     for i, (name, kmers) in enumerate(result.items()):
         kmers_str = json.dumps(kmers, ensure_ascii=False)
