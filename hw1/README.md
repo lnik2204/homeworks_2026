@@ -184,3 +184,5 @@ git commit -m "Merge"
 git push
 ```
 Всё готово!
+
+# Задание 6. Автоматизация через Github Actions
