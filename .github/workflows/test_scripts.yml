@@ -1,0 +1,66 @@
+name: Test homework scripts
+
+on:
+  push:
+    branches: [ main, workflow-testing ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        
+    - name: Make scripts executable
+      run: |
+        chmod +x hw1/complement.py
+        chmod +x hw1/count_kmers.py
+        
+    - name: Test complement.py
+      run: |
+        echo "Testing complement.py with sequence ATGCCGATGG"
+        cd hw1
+        ./complement.py --seq ATGCCGATGG > complement_output.txt
+        echo "Output:"
+        cat complement_output.txt
+        # Проверяем, что вывод содержит reverse complement (примерно)
+        if grep -q "CCAGCGGCAT" complement_output.txt; then
+          echo "✅ complement.py test passed"
+        else
+          echo "❌ complement.py test failed"
+          exit 1
+        fi
+        
+    - name: Test count_kmers.py
+      run: |
+        echo "Testing count_kmers.py with test_sequences.fna"
+        cd hw1
+        ./count_kmers.py --fa test_sequences.fna --k 3 --out test_output.json
+        echo "Output saved to test_output.json"
+        # Проверяем, что файл создан и не пустой
+        if [ -s test_output.json ]; then
+          echo "✅ count_kmers.py test passed (file created)"
+          echo "First few lines of output:"
+          head -5 test_output.json
+        else
+          echo "❌ count_kmers.py test failed - no output file"
+          exit 1
+        fi
+        
+    - name: Validate JSON output
+      run: |
+        cd hw1
+        if python3 -m json.tool test_output.json > /dev/null; then
+          echo "✅ JSON is valid"
+        else
+          echo "❌ Invalid JSON"
+          exit 1
+        fi
