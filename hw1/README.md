@@ -186,3 +186,5 @@ git push
 Всё готово!
 
 # Задание 6. Автоматизация через Github Actions
+
+В .github/workflows я положила файл HW1-WF.yaml для тестирования моего кода
