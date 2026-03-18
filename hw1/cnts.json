@@ -1,0 +1,4 @@
+{
+    "seq1": {"ATAT": 3, "TATA": 1, "TATG": 1, "ATGC": 1, "TGCA": 1, "GCAT": 1, "CATA": 1},
+    "seq2": {"WKRF": 1, "KRFK": 1, "RFKR": 1, "FKRF": 1, "KRFP": 1}
+}
