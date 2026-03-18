@@ -31,7 +31,7 @@ for name, seq in seqs.items():
     else:
         result[name] = {}
 
-with open('args.json', 'w') as f:
+with open(args.json, 'w') as f:
     f.write('{\n')
     for i, (name, kmers) in enumerate(result.items()):
         kmers_str = json.dumps(kmers, ensure_ascii=False)
