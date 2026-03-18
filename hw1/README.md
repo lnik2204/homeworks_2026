@@ -9,6 +9,18 @@
 | `count_kmers.py` | Скрипт с реализацией алгоритмов для задания №3 |
 | `test.fna` | Последовательности для проверки работы кода для задания №3 |
 
+## Основные команды 
+```bash
+ssh -T git@github.com #подключение к GitHub
+git clone git@github.com:lnik2204/homeworks_2026.git #клонирование репозитория к себе на ноутбук
+git add filename #добавить файл в Git
+git commit -m "File added" #сделать коммит
+git push #отправить всё на GitHub
+git status #посмотреть, какие файлы изменены
+git pull #забрать все обновления с GitHub
+git branch -a #показать все ветки
+git checkout main #вернуться в ветку main
+```
 # Задание 2: Reverse complement и GC состав ДНК
 
 ## Описание задачи
