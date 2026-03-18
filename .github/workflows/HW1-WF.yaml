@@ -26,7 +26,7 @@ jobs:
         
     - name: Test complement.py
       run: |
-        echo "Testing complement.py with sequence ATGCCGATGG"
+        echo "Testing complement.py with sequence ATGCCGATGG..."
         cd hw1
         ./complement.py --seq ATGCCGATGG > complement_output.txt
         echo "Output:"
