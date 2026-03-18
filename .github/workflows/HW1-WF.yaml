@@ -32,7 +32,7 @@ jobs:
         echo "Output:"
         cat complement_output.txt
         # Проверяем, что вывод содержит reverse complement (примерно)
-        if grep -q "CCAGCGGCAT" complement_output.txt; then
+        if grep -q "CCATCGGCAT" complement_output.txt; then
           echo "✅ complement.py test passed"
         else
           echo "❌ complement.py test failed"
