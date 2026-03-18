@@ -33,9 +33,9 @@ jobs:
         cat complement_output.txt
         # Проверяем, что вывод содержит reverse complement (примерно)
         if grep -q "CCATCGGCAT" complement_output.txt; then
-          echo "✅ complement.py test passed"
+          echo "complement.py test passed"
         else
-          echo "❌ complement.py test failed"
+          echo "complement.py test failed"
           exit 1
         fi
         
@@ -43,15 +43,23 @@ jobs:
       run: |
         echo "Testing count_kmers.py with test_sequences.fna"
         cd hw1
+        echo "Current directory: $(pwd)"
+        echo "Files in hw1 before running:"
+        ls -la
+        echo "Running command: ./count_kmers.py --fa test_sequences.fna --k 3 --out test_output.json"
         ./count_kmers.py --fa test_sequences.fna --k 3 --out test_output.json
-        echo "Output saved to test_output.json"
-        # Проверяем, что файл создан и не пустой
-        if [ -s test_output.json ]; then
-          echo "✅ count_kmers.py test passed (file created)"
-          echo "First few lines of output:"
-          head -5 test_output.json
+        EXIT_CODE=$?
+        echo "Exit code: $EXIT_CODE"
+        echo "Files in hw1 after running:"
+        ls -la
+        if [ -f test_output.json ]; then
+          echo "test_output.json exists"
+          echo "Content of test_output.json:"
+          cat test_output.json
         else
-          echo "❌ count_kmers.py test failed - no output file"
+          echo "test_output.json NOT found"
+          echo "Checking for any .json files:"
+          ls -la *.json
           exit 1
         fi
         
@@ -59,8 +67,8 @@ jobs:
       run: |
         cd hw1
         if python3 -m json.tool test_output.json > /dev/null; then
-          echo "✅ JSON is valid"
+          echo "JSON is valid"
         else
-          echo "❌ Invalid JSON"
+          echo "Invalid JSON"
           exit 1
         fi
