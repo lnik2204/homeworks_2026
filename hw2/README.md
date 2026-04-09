@@ -54,8 +54,8 @@ domains.json.
 #### 3. InterPro API (для Pfam доменов)
 - **Базовый URL:** `https://www.ebi.ac.uk/interpro/api`
 - **Используемые эндпоинты:**
-  1. `GET /protein/uniprot/{uniprot_id}/entry/pfam` — получение Pfam записей для белка
-  2. `GET /entry/pfam/{accession}` — детали конкретного Pfam домена (через entries_url)
+  1) `GET /protein/uniprot/{uniprot_id}/entry/pfam` — получение Pfam записей для белка
+  2) `GET /entry/pfam/{accession}` — детали конкретного Pfam домена (через entries_url)
 
 ```bash
 Statistics:
