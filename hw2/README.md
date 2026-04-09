@@ -7,14 +7,14 @@
 | `README.md` | Документация (текущий файл) |
 | `wikipedia_articles.py` | Веб-кроулер на Wikipedia |
 | `draw_wiki.py` | Cкрипт для отрисовки |
-| `analyze_links.py` | Cкрипт для подсчета количестви ссылок статьи |
+| `analyze_links.py` | Cкрипт для подсчета количества ссылок статьи |
 | `get_domains.py` | Cкрипт для получения списка белков через REST API ENCODE |
 
 ## Основные команды 
 ```bash
-python3 wikipedia_articles.py --url "https://en.wikipedia.org/wiki/Bioinformatics" --depth 5 # запускаем скрипт на любой статье
-python3 draw_wiki.py --json "Bioinformatics.json" --output bioinformatics_graph.png # визуализация
-python3 analyze_links.py --url "https://en.wikipedia.org/wiki/Bioinformatics" # подсчет количества ссылок
+python3 wikipedia_articles.py --url "https://en.wikipedia.org/wiki/Capybara" --depth 5 # запускаем скрипт на любой статье
+python3 draw_wiki.py --json "Capybara.json" --output bioinformatics_graph.png # визуализация
+python3 analyze_links.py --url "https://en.wikipedia.org/wiki/Capybara" # подсчет количества ссылок
 python3 get_domains.py # получение списка белков
 ```
 # Задание 1: Веб-кроулер на Wikipedia
@@ -26,6 +26,31 @@ python3 get_domains.py # получение списка белков
 
 # Задание 3: REST API в ENCODE
 
+### Используемые API и эндпоинты
+
+#### 1. ENCODE API
+- **Базовый URL:** `https://www.encodeproject.org/search/`
+- **Используемые параметры:**
+  - `type=Experiment` — тип объекта
+  - `assay_title=DNase-seq` / `TF ChIP-seq` — тип эксперимента
+  - `biosample_ontology.classification=cell line` — тип образца
+  - `status=released` — только опубликованные данные
+  - `format=json` — формат ответа
+
+#### 2. UniProt API
+- **Базовый URL:** `https://rest.uniprot.org/uniprotkb/search`
+- **Используемые параметры:**
+  - `query=gene_exact:{gene} AND organism_id:9606` — точное название гена, организм человек
+  - `fields=accession,gene_names` — запрашиваемые поля
+  - `format=json` — формат ответа
+  - `size=1` — один результат
+
+#### 3. InterPro API (для Pfam доменов)
+- **Базовый URL:** `https://www.ebi.ac.uk/interpro/api`
+- **Используемые эндпоинты:**
+  1. `GET /protein/uniprot/{uniprot_id}/entry/pfam` — получение Pfam записей для белка
+  2. `GET /entry/pfam/{accession}` — детали конкретного Pfam домена (через entries_url)
+
 ```bash
 Statistics:
    - Top cell line: K562
@@ -34,4 +59,3 @@ Statistics:
    - Proteins with domains: 19
    - Total Pfam domains found: 31
 ```
-# Задание 5: Telegram-уведомления для Github Actions
