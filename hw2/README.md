@@ -24,4 +24,13 @@ python3 analyze_links.py --url "https://en.wikipedia.org/wiki/Bioinformatics" # 
 
 Также пришлось написать отдельный скрипт для проверки количества ссылок статьи (analyze_links.py), так как изначально выбранная статья обрабатывалась очень долго.
 # Задание 3: REST API в ENCODE
+
+'''bash
+Statistics:
+   - Top cell line: K562
+   - TF proteins found: 23
+   - Mapped to UniProt: 23
+   - Proteins with domains: 19
+   - Total Pfam domains found: 31
+'''
 # Задание 5: Telegram-уведомления для Github Actions
