@@ -7,7 +7,7 @@ from collections import Counter
 from typing import Dict, List, Set, Optional
 
 def find_best_cell_line():
-    """Найти клеточную линию с наибольшим количеством DNase-seq экспериментов."""
+    """Поиск клеточной линии с наибольшим количеством DNase-seq экспериментов."""
     print("Finding cell line with most DNase-seq experiments...")
     
     base_url = "https://www.encodeproject.org/search/"
@@ -34,14 +34,14 @@ def find_best_cell_line():
     if not cell_line_counts:
         raise Exception("No DNase-seq experiments found")
     
-    # Находим топ-1 клеточную линию
+    # Находим самую частую клеточную линию
     top_cell_line, max_count = cell_line_counts.most_common(1)[0]
     print(f"Top cell line: {top_cell_line} ({max_count} DNase-seq experiments)")
     return top_cell_line
 
 
 def get_tf_proteins_for_cell_line(cell_line: str) -> List[str]:
-    #Получить список генов транскрипционных факторов для данной клеточной линии.
+    #Список генов транскрипционных факторов для данной клеточной линии
     print(f"\n Getting TF ChIP-seq proteins for {cell_line}...")
     
     base_url = "https://www.encodeproject.org/search/"
@@ -56,7 +56,7 @@ def get_tf_proteins_for_cell_line(cell_line: str) -> List[str]:
     response = requests.get(base_url, params=params)
     data = response.json()
     
-    #Собираем уникальные гены
+    #Уникальные гены
     genes = set()
     for exp in data.get('@graph', []):
         if 'target' in exp and 'label' in exp['target']:
@@ -156,7 +156,7 @@ def get_pfam_domains(uniprot_id: str) -> List[str]:
         return []
 
 def get_all_domains(protein_uniprot_map: Dict[str, Optional[str]]) -> Dict[str, List[str]]:
-    #Получить домены для всех успешно смапленных белков.
+    #Домены для всех успешно смапленных белков
     print(f"\n Fetching Pfam domains from InterPro API...")
     
     domains_dict = {}
